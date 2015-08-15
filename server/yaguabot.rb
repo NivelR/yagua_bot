@@ -4,9 +4,9 @@ class Yaguabot < Cuba
       res.write ({
         status: 
           {
-            ram: Hardware::Mem.ram_usage,
-            cpu: Hardware::Cpu.cpu_usage,
-            disk: 0
+            ram: Hardware::Mem.usage,
+            cpu: Hardware::Cpu.usage,
+            disk: Hardware::Disk.usage
           }
       }.to_json)
     end
