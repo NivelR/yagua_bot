@@ -4,11 +4,12 @@ require 'pp'
 require 'net/http'
 require 'mongo_mapper'
 require_relative 'grapher'
+require_relative '../model/server'
 
-Dir['../model/**/*.rb'].sort.each          { |rb| require rb }
+# Dir['./../model/**/*.rb'].sort.each          { |rb| require rb }
 
 
-MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
+# MongoMapper.connection = Mongo::Connection.new('localhost', 27017)
 MongoMapper.database = "yagua_bot"
 
 token =
@@ -62,9 +63,15 @@ bot.run do |client, message|
 	  	client.send_chat_action(chat_id: message.chat.id, action: :typing)
 	    client.send_message(chat_id: message.chat.id, text: "Enviaste el Puerto: #{@port}. -woof") 
 	    client.send_chat_action(chat_id: message.chat.id, action: :typing)
-		  uri = URI("http://#{@ip}:#{@port}/status")
-		  msg = Net::HTTP.get(uri) # => String
-		client.send_message(chat_id: message.chat.id, text: "Respuesta: #{msg}. -woof")
+      begin
+  		  uri = URI("http://#{@ip}:#{@port}/status")
+  		  msg = Net::HTTP.get(uri) # => String
+        client.send_message(chat_id: message.chat.id, text: "Respuesta: #{msg}. -woof")
+        
+      rescue Exception => e
+        
+  		  client.send_message(chat_id: message.chat.id, text: "Respuesta: #CHUPA LIMON. -woof")
+      end
 
 	  when /DHH/
 	   	client.send_chat_action(chat_id: message.chat.id, action: :typing)
