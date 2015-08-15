@@ -1,7 +1,7 @@
 class HandShake < Cuba
 
-	Cuba.define do
-	  on get, default do 
+	define do
+	  on get do 
 	    res.write({mbaepa: 'pora'}.to_json)
 	  end
   end

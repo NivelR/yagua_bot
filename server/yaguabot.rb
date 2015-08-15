@@ -1,14 +1,14 @@
 class Yaguabot < Cuba
-  Cuba.define do
+  define do
     on get, default do
       res.write ({
-        "status": 
+        status: 
           {
-            "ram": "",
-            "cpu": "",
-            "disk": ""
+            ram: ram_usage,
+            cpu: cpu_usage,
+            disk: disk_usage
           }
-      }).to_json
+      }.to_json)
     end
   end
 
