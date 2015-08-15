@@ -3,6 +3,7 @@ require 'telebot'
 require 'pp'
 require 'net/http' 
 require_relative 'grapher' 
+require_relative '../utils.rb'
 require 'net/http'
 require 'mongo_mapper'
 
@@ -58,6 +59,16 @@ bot.run do |client, message|
       client.send_message(chat_id: message.chat.id, text: "Decime el puerto: /port 9393 -woof")
 
     when Utils::Addresses.valid_port
+      @port = message.text[6..-1]
+      if /^(\d{4})$/
+         client.send_chat_action(chat_id: message.chat.id, action: :typing)
+         client.send_message(chat_id: message.chat.id, text: "Error puerto incorrecto. Enviaste: #{@port}. -woof")    
+        return false 
+      end
+
+      client.send_chat_action(chat_id: message.chat.id, action: :typing)
+      client.send_message(chat_id: message.chat.id, text: "Enviaste el Puerto: #{@port}. -woof") 
+      client.send_chat_action(chat_id: message.chat.id, action: :typing)
       if @ip
         uri = URI("http://#{@ip}:#{@port}/status")
         msg = Net::HTTP.get(uri) # => String
@@ -70,7 +81,7 @@ bot.run do |client, message|
         
         client.send_photo(chat_id: message.chat.id, photo: file)
       else
-        client.send_message(chat_id: message.chat.id, text: "Decime la IP -woof")        
+        client.send_message(chat_id: message.chat.id, text: "Decime la IP -woof")
       end
 
     else

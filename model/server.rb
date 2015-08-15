@@ -1,4 +1,4 @@
-class MP
+class Server
 	include MongoMapper::Document
 
 	key :name, String
