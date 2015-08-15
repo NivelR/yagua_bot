@@ -14,6 +14,7 @@ class Yaguabot < Cuba
 
   private
     def ram_usage
+      total_ram = %x(cat /proc/meminfo | grep -i MemTotal | awk '{print $2}').to_i
     end
 
     def cpu_usage
