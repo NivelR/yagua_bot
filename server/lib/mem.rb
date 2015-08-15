@@ -5,12 +5,6 @@ module Hardware
       used_ram * 100 / total_ram
     end
 
-    def cpu_usage
-    end
-
-    def disk_usage
-    end
-
     def self.total_ram
       %x(cat /proc/meminfo | grep -i MemTotal | awk '{print $2}').to_i
     end
