@@ -4,10 +4,8 @@ require 'telebot'
 require 'pp'
 
 token =
-  if File.exist?(TOKEN_FILE)
-    File.read(TOKEN_FILE).strip
-  elsif ENV['TOKEN']
-    ENV['TOKEN']
+  if ENV['TOKEN']
+  	ENV['TOKEN']
   else
     abort "Configure el TOKEN en su entorno"
   end
@@ -15,6 +13,6 @@ token =
 bot = Telebot::Bot.new(token)
 
 bot.run do |client, message|
-  reply = "You've said: #{message.text}"
+  reply = "You've said: #{message.text} "
   client.send_message(chat_id: message.chat.id, text: reply)
 end
