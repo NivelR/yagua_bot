@@ -52,6 +52,12 @@ bot.run do |client, message|
 
     when /port \d\d\d\d/
       @port = message.text[6..-1]
+      if /^(\d{4})$/
+         client.send_chat_action(chat_id: message.chat.id, action: :typing)
+         client.send_message(chat_id: message.chat.id, text: "Error puerto incorrecto. Enviaste: #{@port}. -woof")    
+        return false 
+      end
+
       client.send_chat_action(chat_id: message.chat.id, action: :typing)
       client.send_message(chat_id: message.chat.id, text: "Enviaste el Puerto: #{@port}. -woof") 
       client.send_chat_action(chat_id: message.chat.id, action: :typing)
@@ -68,7 +74,6 @@ bot.run do |client, message|
         client.send_photo(chat_id: message.chat.id, photo: file)
       else
         client.send_message(chat_id: message.chat.id, text: "Decime la IP -woof")
-        
       end
 
     when /DHH/
