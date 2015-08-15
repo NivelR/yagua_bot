@@ -5,7 +5,7 @@ class Yaguabot < Cuba
         status: 
           {
             ram: Hardware::Mem.ram_usage,
-            cpu: 0,
+            cpu: Hardware::Cpu.cpu_usage,
             disk: 0
           }
       }.to_json)
