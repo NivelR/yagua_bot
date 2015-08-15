@@ -3,7 +3,7 @@ require 'telebot'
 require 'pp'
 require 'net/http'
 require 'mongo_mapper'
-require 'resolv'
+
 require_relative 'grapher'
 
 Dir['../model/**/*.rb'].sort.each          { |rb| require rb }
@@ -43,7 +43,7 @@ bot.run do |client, message|
       client.send_message(chat_id: message.chat.id, text: "Decime la IP:. -woof")
       sleep 1       
 
-    when Resolv::IPv4::Regex
+    when Utils::Addresses.valid_ipv4
       client.send_chat_action(chat_id: message.chat.id, action: :typing)
       client.send_message(chat_id: message.chat.id, text: "Enviaste una IP a: #{message.text}. -woof")
       @ip = message.text
@@ -53,7 +53,7 @@ bot.run do |client, message|
       client.send_chat_action(chat_id: message.chat.id, action: :typing)
       client.send_message(chat_id: message.chat.id, text: "Decime el puerto: /port 9393 -woof")
 
-    when /port \d\d\d\d/
+    when Utils::Addresses.valid_port
       @port = message.text[6..-1]
       client.send_chat_action(chat_id: message.chat.id, action: :typing)
       client.send_message(chat_id: message.chat.id, text: "Enviaste el Puerto: #{@port}. -woof") 
