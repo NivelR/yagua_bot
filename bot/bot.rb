@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-
 require 'telebot'
 require 'pp'
 
@@ -11,7 +9,12 @@ token =
   elsif ENV['TOKEN']
     ENV['TOKEN']
   else
-    abort "Please set token as TOKEN env variable"
+    abort "Configure el TOKEN en su entorno"
   end
 
 bot = Telebot::Bot.new(token)
+
+bot.run do |client, message|
+  reply = "You've said: #{message.text}"
+  client.send_message(chat_id: message.chat.id, text: reply)
+end
