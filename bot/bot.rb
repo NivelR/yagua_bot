@@ -3,6 +3,7 @@
 require 'telebot'
 require 'pp'
 require 'net/http' 
+require_relative 'grapher' 
 
 token =
   if ENV['TOKEN']
