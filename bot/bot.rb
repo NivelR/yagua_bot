@@ -24,8 +24,7 @@ bot = Telebot::Bot.new(token)
 bot.run do |client, message|
   markup = Telebot::ReplyKeyboardMarkup.new(
     keyboard: [
-      [ "agregar_server", "quien_es_trolo"],
-      [ "N/C", "NN" ]
+      [ "agregar_server" ]
     ]
   )
 
