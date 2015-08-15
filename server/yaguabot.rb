@@ -1,6 +1,7 @@
 class Yaguabot < Cuba
   define do
     on get, default do
+      res.headers.merge! "Content-Type" => "application/json"
       res.write ({
         status: 
           {
