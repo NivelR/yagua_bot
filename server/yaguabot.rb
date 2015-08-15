@@ -4,22 +4,13 @@ class Yaguabot < Cuba
       res.write ({
         status: 
           {
-            ram: ram_usage,
-            cpu: cpu_usage,
-            disk: disk_usage
+            ram: Hardware::Mem.ram_usage,
+            cpu: 0,
+            disk: 0
           }
       }.to_json)
     end
   end
 
-  private
-    def ram_usage
-      total_ram = %x(cat /proc/meminfo | grep -i MemTotal | awk '{print $2}').to_i
-    end
-
-    def cpu_usage
-    end
-
-    def disk_usage
-    end
+  
 end
